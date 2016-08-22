@@ -1,5 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea
-PriceDetailsService.iml
+*.iml
 target
 src/main/resources/application-local.properties

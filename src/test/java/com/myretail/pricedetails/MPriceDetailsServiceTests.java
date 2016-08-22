@@ -288,7 +288,7 @@ public class MPriceDetailsServiceTests {
 
         mockMvc.perform(get("/"))
                 .andExpect(content().string("Use the following urls to see the interactions with the database:<br/>\"\n" +
-                        " * GET '/price': Get all price details.<br/>\"\n" +
+                        " * GET '/prices': Get all price details.<br/>\"\n" +
                         " * GET '/price/productId': get the price info details of the passed product id.<br/>\"\n" +
                         " * DELETE '/price/productId': delete the price info of the passed product id.<br/>\"\n" +
                         " * POST '/price': create the price info with posted data.<br/>\"\n" +
