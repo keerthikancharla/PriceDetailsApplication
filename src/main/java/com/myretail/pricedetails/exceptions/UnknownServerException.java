@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 public class UnknownServerException extends RuntimeException {
+    /**
+     * Instantiates a new Unknown server exception.
+     *
+     * @param message the message
+     */
     public UnknownServerException(String message) {
         super(message);
     }
