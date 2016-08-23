@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by keerthiprasad on 8/16/16.
+ * This class will be invoked when ever a URL is hit
  */
 @Controller
 public class PriceDetailsController {
