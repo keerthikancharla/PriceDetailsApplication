@@ -23,8 +23,12 @@ public class PriceDetailsController {
     private PriceDetailsRepository priceDetailsRepository;
 
     /**
-     * @param productId
-     * @return
+     * Gets price details.
+     *
+     * @param productId the product id
+     * @return the product price entity
+     * This  method will be invoked for a GET method with the URL pattern as mentioned in the request mapping.
+     * This method is used to get the price and currency code details based on product ID.
      */
     @RequestMapping(value = "/price/{productId}", method = RequestMethod.GET)
     public
@@ -42,6 +46,14 @@ public class PriceDetailsController {
             throw new ResourceNotFoundException("Requested Resource Not Found");
     }
 
+    /**
+     * Save price details product price entity.
+     *
+     * @param productPriceEntity the product price entity
+     * @return the product price entity
+     * This  method will be invoked for a POST method with the URL pattern as mentioned in the request mapping.
+     * This method is used to insert price and currency code details for a product.
+     */
     @RequestMapping(value = "/price", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -57,6 +69,14 @@ public class PriceDetailsController {
             }
     }
 
+    /**
+     * Delete price details boolean.
+     *
+     * @param productId the product id
+     * @return the boolean
+     * This  method will be invoked for a DELETE method with the URL pattern as mentioned in the request mapping.
+     * This method is used to DELETE a product.
+     */
     @RequestMapping(value = "/price/{productId}", method = RequestMethod.DELETE)
     public
     @ResponseBody
@@ -73,6 +93,14 @@ public class PriceDetailsController {
             throw new ResourceNotFoundException("Requested Resource Not Found");
     }
 
+    /**
+     * Update price details product price entity.
+     *
+     * @param productPriceEntity the product price entity
+     * @return the product price entity
+     * This  method will be invoked for a PUT method with the URL pattern as mentioned in the request mapping.
+     * This method is used to save the price details for a product.
+     */
     @RequestMapping(value = "/price", method = RequestMethod.PUT)
     public
     @ResponseBody
@@ -89,6 +117,14 @@ public class PriceDetailsController {
 
     }
 
+    /**
+     * Update prices details string.
+     *
+     * @param productPriceEntities the product price entities
+     * @return the string
+     * This  method will be invoked for a PUT method with the URL pattern as mentioned in the request mapping.
+     * This method is used to save price details for multiple products.
+     */
     @RequestMapping(value = "/prices", method = RequestMethod.PUT)
     public
     @ResponseBody
@@ -110,6 +146,13 @@ public class PriceDetailsController {
 
     }
 
+    /**
+     * Gets all price details.
+     *
+     * @return the all price details
+     * This  method will be invoked for a GET method with the URL pattern as mentioned in the request mapping.
+     * This method is used to get the price and currency code details of all the products
+     */
     @RequestMapping(value = "/prices", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -123,6 +166,11 @@ public class PriceDetailsController {
 
     }
 
+    /**
+     * Index page string.
+     *
+     * @return the string
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public
     @ResponseBody

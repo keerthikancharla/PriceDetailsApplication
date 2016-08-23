@@ -37,6 +37,11 @@ public class MPriceDetailsServiceTests {
     @MockBean
     private PriceDetailsRepository priceDetailsRepository;
 
+    /**
+     * Test get price details.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testGetPriceDetails() throws Exception {
         given(this.priceDetailsRepository.exists(anyInt()))
@@ -50,6 +55,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(content().json(jsonString));
     }
 
+    /**
+     * Test get price details invalid id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testGetPriceDetailsInvalidId() throws Exception {
         given(this.priceDetailsRepository.exists(anyInt()))
@@ -62,6 +72,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Test get price details with exception.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testGetPriceDetailsWithException() throws Exception {
         given(this.priceDetailsRepository.exists(anyInt()))
@@ -72,12 +87,22 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().is5xxServerError());
     }
 
+    /**
+     * Test get price details with invalid path.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testGetPriceDetailsWithInvalidPath() throws Exception {
         mockMvc.perform(get("/price/"))
                 .andExpect(status().isMethodNotAllowed());
     }
 
+    /**
+     * Test get all products price details.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testGetAllProductsPriceDetails() throws Exception {
         ProductPriceEntity product1 = new ProductPriceEntity(123456, 99.99, "USD");
@@ -95,6 +120,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(content().json(jsonArray));
     }
 
+    /**
+     * Test get all price details with exception.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testGetAllPriceDetailsWithException() throws Exception {
 
@@ -104,18 +134,33 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().is5xxServerError());
     }
 
+    /**
+     * Test get all price details with invalid path.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testGetAllPriceDetailsWithInvalidPath() throws Exception {
         mockMvc.perform(get("/prices/123456"))
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Test delete product by wrong path.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testDeleteProductByWrongPath() throws Exception {
         mockMvc.perform(delete("/price"))
                 .andExpect(status().isMethodNotAllowed());
     }
 
+    /**
+     * Test delete product details.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testDeleteProductDetails() throws Exception {
         given(this.priceDetailsRepository.exists(anyInt()))
@@ -126,6 +171,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Test delete product details invalid id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testDeleteProductDetailsInvalidId() throws Exception {
         given(this.priceDetailsRepository.exists(anyInt()))
@@ -136,6 +186,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Test delete price details with exception.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testDeletePriceDetailsWithException() throws Exception {
         given(this.priceDetailsRepository.exists(anyInt()))
@@ -145,6 +200,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().is5xxServerError());
     }
 
+    /**
+     * Test update product details.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testUpdateProductDetails() throws Exception {
         ProductPriceEntity product1 = new ProductPriceEntity(123456, 99.99, "USD");
@@ -159,6 +219,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(content().json(jsonString));
     }
 
+    /**
+     * Test update product details invalid id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testUpdateProductDetailsInvalidId() throws Exception {
         ProductPriceEntity product1 = new ProductPriceEntity(123456, 99.99, "USD");
@@ -172,6 +237,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Test update product details with exception.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testUpdateProductDetailsWithException() throws Exception {
         ProductPriceEntity product1 = new ProductPriceEntity(123456, 99.99, "USD");
@@ -183,12 +253,22 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().is5xxServerError());
     }
 
+    /**
+     * Test update product by wrong path.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testUpdateProductByWrongPath() throws Exception {
         mockMvc.perform(put("/price/123456"))
                 .andExpect(status().isMethodNotAllowed());
     }
 
+    /**
+     * Test insert product details with existing product.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testInsertProductDetailsWithExistingProduct() throws Exception {
         given(this.priceDetailsRepository.exists(anyInt()))
@@ -202,6 +282,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().isBadRequest());
     }
 
+    /**
+     * Test insert product details with new product.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testInsertProductDetailsWithNewProduct() throws Exception {
         ProductPriceEntity product1 = new ProductPriceEntity(123456, 99.99, "USD");
@@ -216,6 +301,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(content().json(jsonString));
     }
 
+    /**
+     * Test insert product details with exception.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testInsertProductDetailsWithException() throws Exception {
         given(this.priceDetailsRepository.exists(anyInt()))
@@ -228,12 +318,22 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().is5xxServerError());
     }
 
+    /**
+     * Test insert product by wrong path.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testInsertProductByWrongPath() throws Exception {
         mockMvc.perform(post("/price/123456"))
                 .andExpect(status().isMethodNotAllowed());
     }
 
+    /**
+     * Test update products list.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testUpdateProductsList() throws Exception {
         ProductPriceEntity product1 = new ProductPriceEntity(123456, 99.99, "USD");
@@ -251,6 +351,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(content().string("Saved Successfully"));
     }
 
+    /**
+     * Test update product list with invalid id.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testUpdateProductListWithInvalidId() throws Exception {
         ProductPriceEntity product1 = new ProductPriceEntity(123456, 99.99, "USD");
@@ -265,6 +370,11 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Test update products list with exception.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testUpdateProductsListWithException() throws Exception {
         given(this.priceDetailsRepository.exists(anyInt()))
@@ -276,12 +386,22 @@ public class MPriceDetailsServiceTests {
                 .andExpect(status().is5xxServerError());
     }
 
+    /**
+     * Test update products list by wrong path.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testUpdateProductsListByWrongPath() throws Exception {
         mockMvc.perform(put("/prices/123456"))
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Test index page.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testIndexPage() throws Exception {
 
