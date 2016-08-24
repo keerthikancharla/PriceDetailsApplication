@@ -5,6 +5,8 @@ import com.myretail.pricedetails.exceptions.ResourceAlreadyExists;
 import com.myretail.pricedetails.exceptions.ResourceNotFoundException;
 import com.myretail.pricedetails.exceptions.UnknownServerException;
 import com.myretail.pricedetails.repositories.PriceDetailsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +20,7 @@ import java.util.List;
  */
 @Controller
 public class PriceDetailsController {
-
+    private final Logger logger = LoggerFactory.getLogger(PriceDetailsController.class);
     @Autowired
     private PriceDetailsRepository priceDetailsRepository;
 
@@ -34,7 +36,7 @@ public class PriceDetailsController {
     public
     @ResponseBody
     ProductPriceEntity getPriceDetails(@PathVariable @Valid Integer productId) {
-
+        logger.info("Invoked GET method with URL as /price/{productId}");
         if (priceDetailsRepository.exists(productId))
             try {
                 return priceDetailsRepository.findByProductId(productId);
@@ -58,13 +60,14 @@ public class PriceDetailsController {
     public
     @ResponseBody
     ProductPriceEntity savePriceDetails(@RequestBody @Valid ProductPriceEntity productPriceEntity) {
+        logger.info("Invoked POST method with URL as /price");
         if (priceDetailsRepository.exists(productPriceEntity.getProductId()))
             throw new ResourceAlreadyExists("Requested resource already exists");
         else
             try {
                 return priceDetailsRepository.save(productPriceEntity);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                logger.error(e.getMessage(), e);
                 throw new UnknownServerException(e.getMessage());
             }
     }
@@ -81,12 +84,13 @@ public class PriceDetailsController {
     public
     @ResponseBody
     Boolean deletePriceDetails(@PathVariable @Valid Integer productId) {
+        logger.info("Invoked DELETE method with URL as /price/{productId}");
         if (priceDetailsRepository.exists(productId))
             try {
                 priceDetailsRepository.delete(productId);
                 return true;
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                logger.error(e.getMessage(), e);
                 throw new UnknownServerException(e.getMessage());
             }
         else
@@ -105,11 +109,12 @@ public class PriceDetailsController {
     public
     @ResponseBody
     ProductPriceEntity updatePriceDetails(@RequestBody @Valid ProductPriceEntity productPriceEntity) {
+        logger.info("Invoked PUT method with URL as /price");
         if (priceDetailsRepository.exists(productPriceEntity.getProductId()))
             try {
                 return priceDetailsRepository.save(productPriceEntity);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                logger.error(e.getMessage(), e);
                 throw new UnknownServerException(e.getMessage());
             }
         else
@@ -129,13 +134,14 @@ public class PriceDetailsController {
     public
     @ResponseBody
     String updatePricesDetails(@RequestBody @Valid List<ProductPriceEntity> productPriceEntities) {
+        logger.info("Invoked PUT method with URL as /prices");
         for (int i = 0; i < productPriceEntities.size(); i++) {
 
             if (priceDetailsRepository.exists(productPriceEntities.get(i).getProductId()))
                 try {
                     priceDetailsRepository.save(productPriceEntities.get(i));
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    logger.error(e.getMessage(), e);
                     throw new UnknownServerException(e.getMessage());
 
                 }
@@ -157,10 +163,11 @@ public class PriceDetailsController {
     public
     @ResponseBody
     List<ProductPriceEntity> getAllPriceDetails() {
+        logger.info("Invoked GET method with URL as /prices");
         try {
             return (List<ProductPriceEntity>) priceDetailsRepository.findAll();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage(), e);
             throw new UnknownServerException(e.getMessage());
         }
 
@@ -175,7 +182,7 @@ public class PriceDetailsController {
     public
     @ResponseBody
     String indexPage() {
-
+        logger.info("Invoked GET method with URL as /");
         return "Use the following urls to see the interactions with the database:<br/>\"\n" +
                 " * GET '/prices': Get all price details.<br/>\"\n" +
                 " * GET '/price/productId': get the price info details of the passed product id.<br/>\"\n" +
